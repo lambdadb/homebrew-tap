@@ -27,7 +27,13 @@ jobs:
       - name: Use runner Homebrew on Linux
         if: runner.os == 'Linux'
         run: echo "/home/linuxbrew/.linuxbrew/bin" >> "$GITHUB_PATH"
-      - name: Install and verify the formula
+      - name: Verify all migration release archives
+        run: python3 scripts/verify-migration-release.py
+      - name: Install and verify the CLI formula
         env:
           TAP_TEST_MODE: ${{ github.event_name == 'pull_request' && 'local' || 'remote' }}
         run: bash scripts/test-install.sh "$TAP_TEST_MODE"
+      - name: Install and verify the migration formula
+        env:
+          TAP_TEST_MODE: ${{ github.event_name == 'pull_request' && 'local' || 'remote' }}
+        run: bash scripts/test-install.sh "$TAP_TEST_MODE" lambdadb-migration
