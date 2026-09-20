@@ -3,6 +3,7 @@
 
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import struct
@@ -13,6 +14,9 @@ import urllib.request
 
 def download(url, destination):
     request = urllib.request.Request(url, headers={"User-Agent": "lambdadb-tap-verification"})
+    if url.startswith("https://api.github.com/") and (token := os.environ.get("GH_TOKEN")):
+        # Authenticate metadata only; never forward this header on redirects.
+        request.add_unredirected_header("Authorization", f"Bearer {token}")
     with urllib.request.urlopen(request, timeout=60) as response, destination.open("wb") as output:
         while chunk := response.read(1024 * 1024):
             output.write(chunk)

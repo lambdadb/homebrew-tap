@@ -27,7 +27,11 @@ jobs:
       - name: Use runner Homebrew on Linux
         if: runner.os == 'Linux'
         run: echo "/home/linuxbrew/.linuxbrew/bin" >> "$GITHUB_PATH"
+      - name: Test verifier authentication boundaries
+        run: python3 -B scripts/test-verify-migration-release.py
       - name: Verify all migration release archives
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: python3 scripts/verify-migration-release.py
       - name: Install and verify the CLI formula
         env:

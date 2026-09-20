@@ -19,6 +19,7 @@ formula trust prompt from Homebrew; whole-tap trust is not required.
 | Formula | Executable | Source and usage |
 | --- | --- | --- |
 | `lambdadb-cli` | `lambdadb` | [LambdaDB CLI](https://github.com/lambdadb/lambdadb-cli) |
+| `lambdadb-migration` | `lambdadb-migration` | [LambdaDB Migration](https://github.com/lambdadb/lambdadb-migration) |
 
 This tap tracks stable versions. npm `dev` and `rc` builds remain available from
 the CLI package's npm channels. Additional LambdaDB tools can be added as separate
@@ -38,14 +39,14 @@ brew uninstall lambdadb/tap/lambdadb-cli
 
 After removing all tools from this tap, optionally run `brew untap lambdadb/tap`.
 
-## Migration CLI (publication pending)
+## Migration CLI
 
-The `lambdadb-migration` formula is prepared for stable `0.1.6`. Public installation
-is **not yet verified**: merge the reviewed tap PR and pass the remote installation
-checks before treating these commands as available. The existing `lambdadb-cli`
-installation above is already published.
+The public tap provides stable `lambdadb-migration` `0.1.6`. Installation from the
+public tap was verified on macOS arm64 and Linux amd64 on 2026-09-20. macOS amd64
+and Linux arm64 archives are included and checksum/header-verified; execution on
+those two architectures has not yet been verified. See [validation evidence](MIGRATION.md#publication-and-validation-evidence).
 
-After that publication gate, on macOS or Linux (amd64/arm64):
+With Homebrew installed:
 
 ```sh
 brew install lambdadb/tap/lambdadb-migration

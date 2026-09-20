@@ -53,6 +53,11 @@ and report the OS, Homebrew version and message; do not bypass the check.
    formula and `checksums.txt` (and GitHub's asset digest when present), inspects
    Mach-O/ELF architecture headers and checks for the executable/LICENSE/NOTICE.
    A checksum/header check does not establish executability on that platform.
+   CI supplies its read-only `GH_TOKEN` only to this verifier to avoid the shared
+   runner IP's unauthenticated API limit. The token is used only for HTTPS GitHub
+   API metadata and is not forwarded on redirects or sent to release downloads.
+   Local use remains possible without a token, subject to GitHub API rate limits.
+   Run `python3 -B scripts/test-verify-migration-release.py` to check these boundaries.
 4. Run `bash scripts/test-install.sh local lambdadb-migration` and the unchanged
    CLI contract via `bash scripts/test-install.sh local`. Review the actual
    platform printed by each run. These tests make no service requests or data
@@ -93,16 +98,36 @@ CLI Node dependencies remain; a fresh runner gives the strongest isolation.
 Homebrew uses a temporary XDG configuration directory for this test, keeping
 any formula trust records out of the user's configuration.
 
-## Initial publication gate and evidence
+## Publication and validation evidence
 
-Status: **pending tap PR merge and public remote installation verification**.
-Do not promote the consumer installation instructions as available yet.
+The [initial tap PR](https://github.com/lambdadb/homebrew-tap/pull/1) merged on
+2026-09-20 as `f2f2f43c2b6ce9f7197e537428a509a67be75971`. The published formula
+matches the reviewed PR byte-for-byte. Public installation is now verified;
+no new migration release or tag was needed. The migration documentation PR can
+be reviewed and merged independently of this follow-up's documentation/CI fix.
 
-Merge order: review and merge the tap PR first; then verify public remote
-installation on macOS/Linux. Update the pending availability text in both
-repositories with that evidence before merging the migration documentation PR.
-The migration documentation PR may be reviewed in parallel but should remain a
-draft until the public installation gate passes. No tag or new release is needed.
+Remote-install evidence, 2026-09-20:
+
+- On local macOS arm64 / Homebrew 6.0.17, the public `remote` harness passed
+  installation, formula equality, style, version/help, offline validation and
+  runtime independence. A separate fresh install using the exact consumer command
+  `brew install lambdadb/tap/lambdadb-migration` also passed version/help and
+  formula equality. Both tests removed only their own installation and tap.
+- The [post-merge main workflow](https://github.com/lambdadb/homebrew-tap/actions/runs/35492626489)
+  verified public installation of both CLI tools on macOS arm64 and Linux amd64
+  (attempt 2). It downloaded the tap from GitHub rather than creating local
+  formula fixtures.
+- The first macOS job failed at metadata download with GitHub's unauthenticated
+  API rate limit (HTTP 403), before installation. Retrying the failed job passed
+  without changing the formula or workflow. To prevent recurrence, this follow-up scopes the
+  workflow's existing read-only token to metadata verification; four offline
+  tests cover authentication, anonymous use, download isolation and redirects.
+- The installed migration version was
+  `0.1.6 (7256838f000e7058a5264e83723f83fd4e575f88)`. Package/tap inventories after
+  local tests match their original state, and the existing `.env.local` was
+  unchanged. No service writes or macOS security-setting changes were made.
+- macOS amd64 and Linux arm64 still have checksum/header evidence only.
+  Cross-version upgrade remains unverified because this is the initial formula.
 
 Local evidence, 2026-09-19:
 
