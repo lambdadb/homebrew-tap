@@ -38,6 +38,43 @@ brew uninstall lambdadb/tap/lambdadb-cli
 
 After removing all tools from this tap, optionally run `brew untap lambdadb/tap`.
 
+## Migration CLI (publication pending)
+
+The `lambdadb-migration` formula is prepared for stable `0.1.6`. Public installation
+is **not yet verified**: merge the reviewed tap PR and pass the remote installation
+checks before treating these commands as available. The existing `lambdadb-cli`
+installation above is already published.
+
+After that publication gate, on macOS or Linux (amd64/arm64):
+
+```sh
+brew install lambdadb/tap/lambdadb-migration
+lambdadb-migration --version
+lambdadb-migration --help
+brew update
+brew upgrade lambdadb/tap/lambdadb-migration
+brew uninstall lambdadb/tap/lambdadb-migration
+```
+
+This separate executable installs the existing GitHub Release binary. No Go or
+Node installation is required. Its version can lag the latest GitHub Release
+until a maintainer's formula update is reviewed and merged. Uninstalling the
+formula does not remove user mappings, checkpoints or other user files.
+
+Before switching from `install.sh`, inspect `type -a lambdadb-migration` and
+`ls -l "$(command -v lambdadb-migration)"`. The installer's default is
+`/usr/local/bin`; a custom `--install-dir` may put another copy earlier on PATH.
+Back up or remove only the standalone binary you identified, then install with
+Homebrew and check that `command -v lambdadb-migration` resolves to
+`$(brew --prefix)/bin/lambdadb-migration`. Do not use `brew link --overwrite` or
+run `install.sh` over a Homebrew-managed path. When switching back, uninstall
+the formula first and explicitly choose the standalone install directory.
+Do not run the installer's `--uninstall` against a Homebrew symlink. Keep mappings,
+checkpoints, shell configuration and credentials unchanged.
+
+See [migration maintenance and validation](MIGRATION.md) for the packaging choice,
+checksum checks, platform coverage and publication sequence.
+
 ## Maintainers
 
 Use feature branches and pull requests targeting `main`. Both macOS and Linux
@@ -70,8 +107,11 @@ own installation tests and be added to CI before publication.
 
 ```sh
 bash scripts/test-install.sh local
+bash scripts/test-install.sh local lambdadb-migration
+python3 scripts/verify-migration-release.py
 # After publication, from a checkout matching the public formula:
 bash scripts/test-install.sh remote
+bash scripts/test-install.sh remote lambdadb-migration
 ```
 
 PRs test the checked-out formula through a disposable local tap. Pushes to `main`
@@ -83,6 +123,11 @@ Checks cover formula style, installation, CLI version, JSON configuration, file
 permissions, and runtime selection with an unusable ambient Node. They require
 no LambdaDB credentials and make no LambdaDB API calls. The CLI repository also
 tests the stable release's full CLI contracts against its Homebrew installation.
+Migration checks cover the pinned version, root and source/inventory help, an
+invalid Elasticsearch URL rejected before network access, and execution without
+Go or Node. The archive verifier requires Python 3 for maintainers/CI only; it
+downloads all four binaries and checks release metadata, SHA-256 and binary
+architecture headers without executing other architectures.
 
 The script refuses an existing Homebrew CLI or prefix executable; remote mode
 also refuses an existing `lambdadb/tap`. It removes only its test installation and
