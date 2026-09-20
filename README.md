@@ -31,9 +31,16 @@ Homebrew may install or upgrade dependencies needed by Node.
 
 ## Update and remove
 
+Update an existing CLI installation:
+
 ```sh
 brew update
 brew upgrade lambdadb/tap/lambdadb-cli
+```
+
+Uninstall the CLI:
+
+```sh
 brew uninstall lambdadb/tap/lambdadb-cli
 ```
 
@@ -52,8 +59,18 @@ With Homebrew installed:
 brew install lambdadb/tap/lambdadb-migration
 lambdadb-migration --version
 lambdadb-migration --help
+```
+
+Update an existing migration CLI installation:
+
+```sh
 brew update
 brew upgrade lambdadb/tap/lambdadb-migration
+```
+
+Uninstall the migration CLI:
+
+```sh
 brew uninstall lambdadb/tap/lambdadb-migration
 ```
 
