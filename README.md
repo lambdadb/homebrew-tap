@@ -48,10 +48,11 @@ After removing all tools from this tap, optionally run `brew untap lambdadb/tap`
 
 ## Migration CLI
 
-The public tap provides stable `lambdadb-migration` `0.1.6`. Installation from the
-public tap was verified on macOS arm64 and Linux amd64 on 2026-09-20. macOS amd64
-and Linux arm64 archives are included and checksum/header-verified; execution on
-those two architectures has not yet been verified. See [validation evidence](MIGRATION.md#publication-and-validation-evidence).
+The migration formula pins stable `lambdadb-migration` `0.1.7`. Local installation
+and upgrade from `0.1.6` are verified on macOS arm64. All four macOS/Linux
+amd64/arm64 archives are checksum/header-verified; execution of `0.1.7` on other
+architectures and public-tap installation remain separate checks after merge.
+See [validation evidence](MIGRATION.md#v017-update-validation).
 
 With Homebrew installed:
 
