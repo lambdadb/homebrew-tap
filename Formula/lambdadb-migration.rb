@@ -1,28 +1,28 @@
 class LambdadbMigration < Formula
   desc "Migrate vector databases and search systems into LambdaDB"
   homepage "https://github.com/lambdadb/lambdadb-migration"
-  version "0.1.6"
+  version "0.1.7"
   license "Apache-2.0"
 
   on_macos do
     on_intel do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.6/lambdadb-migration_0.1.6_darwin_amd64.tar.gz"
-      sha256 "e40ada8169f946c250ad40b82041846756f6cebda20a64e86129940cfc385f85"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_darwin_amd64.tar.gz"
+      sha256 "24492dd6a8298ef9ec136d5e7e08d4938d3bf0a262f55af5c47c6cb91aec3708"
     end
     on_arm do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.6/lambdadb-migration_0.1.6_darwin_arm64.tar.gz"
-      sha256 "628c9c1d660efb13ec2c6b8e7674b7feec8bdef21c9b82a1df10b09b61aa1645"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_darwin_arm64.tar.gz"
+      sha256 "ef688d918b9382faaba897c7b7f496a21e1863d4c1d4c06dc06b31e6d88297bc"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.6/lambdadb-migration_0.1.6_linux_amd64.tar.gz"
-      sha256 "d743b0e4645bcfbbe48c2fad0b51bdc37ee4bc96c6c12500cfc78d20b5f8ad04"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_linux_amd64.tar.gz"
+      sha256 "04b03183e5014e1bb4d99a54899fcec46513dfb0f6b70e04f5cd4a3940525643"
     end
     on_arm do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.6/lambdadb-migration_0.1.6_linux_arm64.tar.gz"
-      sha256 "09c41a36724cccca19b11c2ee3477e313eeb9f1eb31a4d8a98f77673102bab9d"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_linux_arm64.tar.gz"
+      sha256 "f592ea61aa80dc71ef8093dff632bfff6acf00ae36df9c251bbcfce4b9ff5400"
     end
   end
 

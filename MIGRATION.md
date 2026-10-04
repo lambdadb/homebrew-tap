@@ -3,7 +3,7 @@
 ## Distribution contract
 
 `Formula/lambdadb-migration.rb` manually pins the published stable GitHub Release
-`v0.1.6`, selecting the macOS/Linux amd64/arm64 archive with the formula DSL's
+`v0.1.7`, selecting the macOS/Linux amd64/arm64 archive with the formula DSL's
 `on_macos`, `on_linux`, `on_intel` and `on_arm` blocks. Every URL contains the exact
 version and every archive has a SHA-256. Installation copies the released Go
 executable into Homebrew's managed prefix; it does not compile source, require Go
@@ -97,6 +97,29 @@ autoremove or user-config deletion is performed. Homebrew downloads/caches and
 CLI Node dependencies remain; a fresh runner gives the strongest isolation.
 Homebrew uses a temporary XDG configuration directory for this test, keeping
 any formula trust records out of the user's configuration.
+
+## v0.1.7 update validation
+
+Local validation on 2026-10-04, before tap merge:
+
+- Published stable [v0.1.7](https://github.com/lambdadb/lambdadb-migration/releases/tag/v0.1.7)
+  targets commit `3416d37ff729b9be73a1a9f50ba65b2e49ab7c4c`.
+- All four formula URLs/hashes match release `checksums.txt`, GitHub asset
+  digests, archive contents and architecture headers. Four verifier boundary
+  tests passed.
+- macOS arm64 / Homebrew 6.0.17: both local installation harnesses passed,
+  including migration version/help, offline invalid-URL rejection, formula
+  equality, style, and execution without ambient Go/Node. The existing CLI
+  formula is unchanged.
+- A disposable local tap installed `0.1.6`, refreshed its formula from a local
+  upstream, and upgraded to `0.1.7` with `brew upgrade`; version and formula tests
+  passed. This does not establish public `brew update` behavior before merge.
+- Upgrade cleanup initially left the old keg behind. Removing the test package
+  without the harness's autoremove guard also removed unneeded dependencies;
+  those dependencies were restored. Both test kegs and temporary taps were removed.
+- macOS/Linux PR CI, public installation and public cross-version upgrade remain
+  separate checks. macOS amd64/Linux arm64 have checksum/header evidence only;
+  no real migration/service requests or security-policy changes were performed.
 
 ## Publication and validation evidence
 
