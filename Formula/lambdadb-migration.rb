@@ -1,28 +1,28 @@
 class LambdadbMigration < Formula
   desc "Migrate vector databases and search systems into LambdaDB"
   homepage "https://github.com/lambdadb/lambdadb-migration"
-  version "0.1.7"
+  version "0.1.8"
   license "Apache-2.0"
 
   on_macos do
     on_intel do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_darwin_amd64.tar.gz"
-      sha256 "24492dd6a8298ef9ec136d5e7e08d4938d3bf0a262f55af5c47c6cb91aec3708"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.8/lambdadb-migration_0.1.8_darwin_amd64.tar.gz"
+      sha256 "d7c92528a6fb079a4e4b98c432052c746b8fd7bf599e3ccd59f7972bda979c60"
     end
     on_arm do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_darwin_arm64.tar.gz"
-      sha256 "ef688d918b9382faaba897c7b7f496a21e1863d4c1d4c06dc06b31e6d88297bc"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.8/lambdadb-migration_0.1.8_darwin_arm64.tar.gz"
+      sha256 "5d92932b6f2c386e9074d2b47a45043fa84dd08488bdda41809bca69e012695b"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_linux_amd64.tar.gz"
-      sha256 "04b03183e5014e1bb4d99a54899fcec46513dfb0f6b70e04f5cd4a3940525643"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.8/lambdadb-migration_0.1.8_linux_amd64.tar.gz"
+      sha256 "38bc1e2251208e1da95af7ca3f6509010af9bff0fe4ab4ef7d5ac9d5e030e0ac"
     end
     on_arm do
-      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.7/lambdadb-migration_0.1.7_linux_arm64.tar.gz"
-      sha256 "f592ea61aa80dc71ef8093dff632bfff6acf00ae36df9c251bbcfce4b9ff5400"
+      url "https://github.com/lambdadb/lambdadb-migration/releases/download/v0.1.8/lambdadb-migration_0.1.8_linux_arm64.tar.gz"
+      sha256 "3f4929eaac5a682c3fc56cfae4a627d2bc5246528f05d9c43555c3d083235e13"
     end
   end
 
