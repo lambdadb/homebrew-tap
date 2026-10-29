@@ -109,7 +109,7 @@ For stable CLI updates:
 1. Finish and verify the npm stable release, including provenance and a clean
    consumer install.
 2. Prepare and review the formula in the
-   [CLI maintainer guide](https://github.com/lambdadb/lambdadb-cli/tree/develop/packaging/homebrew#readme).
+   [CLI maintainer guide](https://github.com/lambdadb/lambdadb-cli/tree/main/packaging/homebrew#readme).
    Update the npm tarball URL/checksum and release lockfile commit/checksum together.
 3. Copy the exact reviewed formula into a PR here. Run local checks and pass both
    hosted installation jobs before merging. No cross-repository token is needed.
