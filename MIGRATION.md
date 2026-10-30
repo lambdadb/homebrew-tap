@@ -3,7 +3,7 @@
 ## Distribution contract
 
 `Formula/lambdadb-migration.rb` manually pins the published stable GitHub Release
-`v0.1.8`, selecting the macOS/Linux amd64/arm64 archive with the formula DSL's
+`v0.1.9`, selecting the macOS/Linux amd64/arm64 archive with the formula DSL's
 `on_macos`, `on_linux`, `on_intel` and `on_arm` blocks. Every URL contains the exact
 version and every archive has a SHA-256. Installation copies the released Go
 executable into Homebrew's managed prefix; it does not compile source, require Go
@@ -97,6 +97,41 @@ autoremove or user-config deletion is performed. Homebrew downloads/caches and
 CLI Node dependencies remain; a fresh runner gives the strongest isolation.
 Homebrew uses a temporary XDG configuration directory for this test, keeping
 any formula trust records out of the user's configuration.
+
+## v0.1.9 update validation
+
+Local validation on 2026-10-30, before tap merge:
+
+- Stable [v0.1.9](https://github.com/lambdadb/lambdadb-migration/releases/tag/v0.1.9)
+  targets `14d0cee7ccca2f9bada14e0faa54c187d73ca351`; the
+  [release workflow](https://github.com/lambdadb/lambdadb-migration/actions/runs/40988814743)
+  passed. The release is published, not a draft/prerelease, and is Latest.
+- `python3 scripts/verify-migration-release.py` verified all four published
+  archives against formula pins, release checksums, GitHub asset digests,
+  required contents and architecture headers. Four verifier authentication-boundary
+  tests passed via `python3 -B scripts/test-verify-migration-release.py`.
+- `bash scripts/test-install.sh local lambdadb-migration` and
+  `bash scripts/test-install.sh local` passed on macOS arm64 / Homebrew 7.0.10.
+  Formula equality, style, version/help, offline invalid-URL rejection and runtime
+  independence passed; the existing CLI formula is unchanged.
+- A disposable local tap installed `0.1.8`, refreshed only its formula from a
+  local Git upstream, and ran `brew upgrade --formula` to `0.1.9`; exact
+  old/new version checks and `brew test` passed. This does not establish public
+  `brew update` behavior before merge.
+- Both test kegs and every temporary tap were removed with dependency autoremove
+  disabled. Tap inventories matched before and after. The CLI harness installed
+  the current `node@24` (24.22.1) and its new library dependencies, which remain
+  as documented; no other package, credential or user configuration changed.
+- Published Linux amd64 (emulated) and Linux arm64 binaries reported
+  `0.1.9 (14d0cee7ccca2f9bada14e0faa54c187d73ca351)` in disposable Docker
+  containers. These version checks are separate from Linux Homebrew CI.
+- The release updates the Go SDK to v0.8.0 (ordered embedding `sources` and the
+  Cohere provider in native mappings) and rejects unsupported vector similarities
+  before LambdaDB writes. Package installation performs no migration or service
+  writes.
+- macOS amd64 has checksum/header evidence only. Public-tap installation and
+  public `brew update`/upgrade remain post-merge checks. No security bypass,
+  user-config change or automatic tap merge is part of this update.
 
 ## v0.1.8 update validation
 
